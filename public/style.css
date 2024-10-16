@@ -1,0 +1,116 @@
+body{
+    font-family: 'Arial',sans-serif;
+    background-color: rgb(245, 241, 215);
+    margin: 10px;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header{
+    
+ background-color: rgb(255, 193, 127);
+ font-size: 20px;
+ width: 100%;
+ color: rgb(22, 17, 17);
+ padding: 1rem;
+ text-align: center;
+}
+.input-container
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 20px;
+}
+input{
+    font-size: 20px;
+    border: 2px solid ;
+    border-color: rgba(207, 135, 231, 0.79);
+    padding: 1rem;
+    border-radius: 20px; 
+    display: flex;  
+    width: 300px;
+}
+button{
+    font-size: 20px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border: 2px;
+    border-radius: 20px;
+    background-color: rgb(181, 78, 222);
+    
+}
+#btn:hover{
+    background-color: rgb(119, 19, 135);
+    border: 20px;
+}
+#movieGrid {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.movie-card {
+    width: calc(50% - 20px);
+    /* 25% width with margin */
+    margin: 10px;
+    /* Increased margin */
+    text-align: center;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.movie-card img {
+    max-width: 100%;
+    /* Ensure image is responsive */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+@media screen and (max-width: 1200px) {
+    .movie-card {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .movie-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .movie-card {
+        width: calc(100% - 20px);
+    }
+}
+#suggest{
+    position: absolute;
+    top:100%;
+    left:0;
+    width :100%;
+    max-height:200px;
+    overflow-y: auto;
+    border: 1px solid rgba(207, 135, 231, 0.79);
+    background-color: white;
+    border-radius: 10px;
+    z-index: 1000;
+    display: none;
+}
+.autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-suggestion:hover {
+    background-color: #f0f0f0;
+}
+

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Search Movie Here</h1>
+    </header>
+    <div class="input-container">
+        <input type="text" id="search" placeholder="Search movie name" oninput="autocompleteSearch()" />
+        <button onclick="searchMovie()" id="btn">Search</button>
+        <div id="suggest"></div>
+    </div>
+    <div id="movieGrid"></div>
+
+    <script>
+       
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchMovies();
+        });
+
+        function fetchMovies() {
+            const movieGrid = document.getElementById('movieGrid');
+            movieGrid.innerHTML = '<p>Loading movies...</p>';
+
+            const randomSearchTerms = ['action', 'comedy', 'drama', 'adventure', 'epic', 'disaster', 'thriller'];
+            const randomTerm = randomSearchTerms[Math.floor(Math.random() * randomSearchTerms.length)];
+
+            fetch(`/movies?search=${randomTerm}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.Response === "True" && data.Search && data.Search.length > 0) {
+                        moviesToShow(data.Search);
+                    } else {
+                        movieGrid.innerHTML = '<p>No random movies found!</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching random movies:', error);
+                    movieGrid.innerHTML = '<p>Error fetching movies. Please try again later.</p>';
+                });
+        }
+
+        function searchMovie() {
+            const search = document.getElementById('search').value;
+            const movieGrid = document.getElementById('movieGrid');
+
+            if (search && search.trim() !== '') {
+                movieGrid.innerHTML = '<p>Loading movies...</p>';
+
+                fetch(`/movies?search=${search}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.Search && data.Search.length > 0) {
+                            moviesToShow(data.Search);
+                        } else {
+                            movieGrid.innerHTML = '<p>No movies found with the given name!</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        movieGrid.innerHTML = '<p>Error fetching movies. Please try again later.</p>';
+                    });
+            } else {
+                alert('Please enter a movie title to search!');
+            }
+        }
+
+        function moviesToShow(movies) {
+            const movieGrid = document.getElementById('movieGrid');
+            movieGrid.innerHTML = '';
+
+            const defaultImage = 'defaultmovie.png';
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+
+                const moviePoster = movie.Poster !== 'N/A' ? movie.Poster : defaultImage;
+                movieCard.innerHTML = `
+                    <img src="${moviePoster}" alt="${movie.Title}">
+                    <h2>${movie.Title}</h2>
+                    <p>${movie.Year}</p>
+                `;
+                movieGrid.appendChild(movieCard);
+            });
+        }
+
+        function autocompleteSearch() {
+            const searchBox = document.getElementById('search');
+            const query = searchBox.value.trim();
+            const suggestionsContainer = document.getElementById('suggest');
+
+            suggestionsContainer.innerHTML = '';
+
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return; 
+            }
+
+            fetch(`/movies?search=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.Search && data.Search.length > 0) {
+                        suggestionsContainer.style.display = 'block';
+                        data.Search.forEach(movie => {
+                            const suggestionItem = document.createElement('div');
+                            suggestionItem.classList.add('autocomplete-suggestion');
+                            suggestionItem.textContent = movie.Title;
+                            suggestionItem.addEventListener('click', () => {
+                                searchBox.value = movie.Title; 
+                                suggestionsContainer.innerHTML = ''; 
+                                searchMovie(); 
+                            });
+                            suggestionsContainer.appendChild(suggestionItem);
+                        });
+                    } else {
+                        suggestionsContainer.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching autocomplete suggestions:', error);
+                });
+        }
+    </script>
+</body>
+</html>
