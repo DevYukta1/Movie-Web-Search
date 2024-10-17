@@ -17,12 +17,10 @@ JavaScript - For interactivity and API calls.
 
 OMDB API - To fetch movie data.
 
-![Screenshot 2024-10-05 183231](https://github.com/user-attachments/assets/70b1c99a-3f33-4cf4-9a62-48559312c3ae)
+![Screenshot 2024-10-17 085015](https://github.com/user-attachments/assets/97ec4e64-5fc4-45df-93eb-e9c4570e5b55)
 
 
-
-![Screenshot 2024-10-05 183343](https://github.com/user-attachments/assets/e9c1200b-be7f-4cee-a5bf-94c306a84292)
-
+![Screenshot 2024-10-17 085102](https://github.com/user-attachments/assets/56e94878-2aa8-4925-9268-199e9e009e79)
 
 
-![Screenshot 2024-10-05 183423](https://github.com/user-attachments/assets/d32fb7a7-c72c-4ce1-8abb-540adb1524b9)
+![Screenshot 2024-10-17 085613](https://github.com/user-attachments/assets/95c5d112-4d59-4ff1-bc65-44658a5e31ba)
